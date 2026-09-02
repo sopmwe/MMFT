@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnetcore.DB.Models;
+namespace MMFT.DB.Models;
 
 public partial class MessengerDbContext : DbContext
 {
