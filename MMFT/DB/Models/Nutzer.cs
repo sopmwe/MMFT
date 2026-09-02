@@ -13,9 +13,9 @@ public partial class Nutzer
 
     public string Ip { get; set; }
 
-    public byte[] PBild { get; set; }
+    public byte[]? PBild { get; set; }
 
-    public string Status { get; set; }
+    public string? Status { get; set; }
 
     public virtual ICollection<Nachrichten> NachrichtenEUus { get; set; } = new List<Nachrichten>();
 

@@ -68,11 +68,11 @@ public partial class MessengerDbContext : DbContext
 
         modelBuilder.Entity<PNutzer>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("P_Nutzer");
+            entity.HasKey(e => e.KeyId);
+            entity.ToTable("P_Nutzer");
 
-            entity.Property(e => e.KeyId).HasColumnName("Key_ID");
+            entity.Property(e => e.KeyId).HasColumnName("Key_ID")
+                .ValueGeneratedOnAdd();
             entity.Property(e => e.PrivateKey)
                 .IsRequired()
                 .HasColumnName("Private_Key");

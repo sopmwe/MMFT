@@ -49,6 +49,8 @@ namespace MMFT.DB
 
             using (var db = new MessengerDbContext())
             {
+                db.Database.EnsureCreated(); // schaut ob die DB existiert, ansonsten wird sie erstellt
+
                 try
                 {
                     var nutzer = new Nutzer
@@ -74,7 +76,12 @@ namespace MMFT.DB
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Fehler beim Speichern" + ex.Message);
+                    string fehlerText = ex.Message;
+                    if (ex.InnerException != null)
+                    {
+                        fehlerText += "\n\nInnerException: " + ex.InnerException.Message;
+                    }
+                    MessageBox.Show(fehlerText);
                 }
             }
         }

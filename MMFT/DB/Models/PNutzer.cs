@@ -5,7 +5,7 @@ namespace MMFT.DB.Models;
 
 public partial class PNutzer
 {
-    public int? KeyId { get; set; }
+    public int KeyId { get; set; }
 
     public string Uuid { get; set; }
 
