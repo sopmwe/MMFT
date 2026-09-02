@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MMFT.DB;
+using MMFT.DB.Models;
 using MMFT.Views;
 
 //TODOs: Passwort soll wärend Eingabe nicht angezeigt werden, sondern als Sternchen oder Punkte dargestellt werden.
@@ -43,6 +45,8 @@ namespace MMFT.Views
             //}
 
             InitializeComponent();
+            var verwalter = new NutzerVerwalten();
+            verwalter.NutzerAnlegen();
 
             DataContext = this;
         }
