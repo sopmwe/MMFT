@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressourcen\Auge.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DB\Models\" />
   </ItemGroup>
 
@@ -19,6 +23,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Ressourcen\Auge.png" />
   </ItemGroup>
 
 </Project>
