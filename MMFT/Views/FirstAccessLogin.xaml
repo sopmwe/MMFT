@@ -35,10 +35,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto" MinWidth="212"/>
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding Profilbild}" Grid.Column="0" Width="100" HorizontalAlignment="Left"/>
+            <Image Source="{Binding Profilbild}" Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left"/>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50">
-                <Button Name="BtnEinfügen" Content="einfügen" Width="150" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                <Button Name="BtnLöschen" Content="löschen" Width="150" HorizontalAlignment="Center"/>
+                <Button Name="BtnEinfügen" Click="BtnEinfuegen_Click" Content="einfügen" Width="150" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                <Button Name="BtnLöschen" Click="BtnLoeschen_Click" Content="löschen" Width="150" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
         <Label Content="{Binding Fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
