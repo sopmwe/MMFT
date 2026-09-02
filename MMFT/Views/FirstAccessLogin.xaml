@@ -19,26 +19,26 @@
         <Label Content="Mad Messenger File Transporter" FontSize="20" Margin="30, 0, 30, 0" Foreground="#e6e6fa"/>
         <Label Content="Willkommen bei Mad Messenger File Transporter," FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="29" Width="341"/>
         <Label Content="bitte legen Sie ein Profil an!" FontSize="15" Margin="30, 0, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
-        
+
         <Label Content="Nutzernamen einstellen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
         <TextBox Name="NutzernameTB" Margin="30,0,30,0"/>
-        
+
         <Label Content="Passwort festlegen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
-        <TextBox Name="PasswortEinsTB" Margin="30,0,30,0"/>
-        
+        <PasswordBox Name="PasswortEinsTB" Margin="30,0,30,0"/>
+
         <Label Content="Passwort wiederholen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
-        <TextBox Name="PasswortZweiTB" Margin="30,0,30,0"/>
-        
+        <PasswordBox Name="PasswortZweiTB" Margin="30,0,30,0"/>
+
         <Label Content="Profilbild auswählen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
         <Grid Margin="30,0,30,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" MinWidth="212"/>
             </Grid.ColumnDefinitions>
-            <Image Source="P_Bild.png" Grid.Column="0" Height="100" Width="100" HorizontalAlignment="Left"/>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <Button Name="BtnEinfügen" Content="einfügen" Width="150" Margin="0,0,0,10"/>
-                <Button Name="BtnLöschen" Content="löschen" Width="150" />
+            <Image Source="{Binding Profilbild}" Grid.Column="0" Width="100" HorizontalAlignment="Left"/>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50">
+                <Button Name="BtnEinfügen" Content="einfügen" Width="150" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                <Button Name="BtnLöschen" Content="löschen" Width="150" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
         <Label Content="{Binding Fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
