@@ -49,16 +49,28 @@ namespace Verarbeiter
         //Hilfsmethode um Json auszulesen
         private static string LiesJsonAusStream(TcpClient client)
         {
+            //Maximal 50 MB in Bytes = 50 * 1024 * 1024
+            const long maxByteGröße = 50 * 1024 * 1024;
+            long gesamtBytesEmpfangen = 0;
+            //Netzwerk-Stream vom Client holen & Memory STream im Ram anlegen, wo die Daten kurz abgelegt werden
             using (NetworkStream stream = client.GetStream())
             using (MemoryStream ms = new MemoryStream())
             {
                 byte[] puffer = new byte[8192];
                 int bytesRead;
-
+                //Daten werden stückweise aus dem Netz gelesen und im Ram gesammelt
                 while ((bytesRead = stream.Read(puffer, 0, puffer.Length)) > 0)
                 {
+                    gesamtBytesEmpfangen += bytesRead;
+
+                    //damit nicht mehr als 50 MB
+                    if(gesamtBytesEmpfangen > maxByteGröße)
+                    {
+                        throw new InvalidOperationException("Paket ist zu groß!");
+                    }
                     ms.Write(puffer, 0, bytesRead);
                 }
+                //Alle Bytes in einen lesbaren String ausgeben
                 return Encoding.UTF8.GetString(ms.ToArray());
             }
         }
