@@ -20,6 +20,8 @@ TCP Kommunikation
 Tim Felix Klimmer:
 Datenbank
 RSA Verschlüsselung
+Logik der Datenbank
+Schnittstelle FirstLogin und Datenbank
 
 
 # Technische Details:
@@ -52,3 +54,15 @@ Und die folgenden Ports als Backup:
 
 
 RSA:
+3072 Key, Privat und Public
+
+
+Chat Fenster:
+
+-> Kontaktliste:
+	Auswahl des Chats anhand eines Kontaktes innerhalb der Liste
+	Verfügt über 4 Kontakttypen:
+		Kontakt, keine neue Nachrichten, kein Status
+		Kontakt, keine neue Nachrichten, mit Status
+		Kontakt, neue Nachrichten, ohne Status
+		Kontakt, neue Nachrichten, mit Status
