@@ -27,6 +27,7 @@ namespace MMFT.Views
     public partial class Login : Window
     {
         private string _Nutzername;
+        public string Fehlermeldung;
         public string Nutzername
         {
             get { return _Nutzername; }
