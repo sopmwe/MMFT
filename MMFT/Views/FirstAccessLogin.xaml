@@ -37,11 +37,11 @@
             </Grid.ColumnDefinitions>
             <Image Source="P_Bild.png" Grid.Column="0" Height="100" Width="100" HorizontalAlignment="Left"/>
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <Button Name="BtnEinfügen" Content="einfügen" Width="150" Click="BtnEinfügen_Click" Margin="0,0,0,10"/>
-                <Button Name="BtnLöschen" Content="löschen" Width="150" Click="BtnLöschen_Click"/>
+                <Button Name="BtnEinfügen" Content="einfügen" Width="150" Margin="0,0,0,10"/>
+                <Button Name="BtnLöschen" Content="löschen" Width="150" />
             </StackPanel>
         </Grid>
         <Label Content="{Binding Fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
-        <Button Name="BtnFirstAccessLogin" Click="BtnFirstAccessLogin_Click" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
+        <Button Name="BtnFirstAccessLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>
