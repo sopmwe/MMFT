@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Ressourcen\Profilbild.png" />
+    <None Remove="Ressourcen\Auge.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Ressourcen\Profilbild.png" />
+    <Resource Include="Ressourcen\Auge.png" />
   </ItemGroup>
 
 </Project>
