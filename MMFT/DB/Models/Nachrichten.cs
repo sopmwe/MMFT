@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace dotnetcore.DB.Models;
+namespace MMFT.DB.Models;
 
 public partial class Nachrichten
 {
