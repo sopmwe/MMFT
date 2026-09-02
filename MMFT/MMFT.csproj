@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="DB\Models\" />
-    <Folder Include="TCP\" />
   </ItemGroup>
 
 </Project>
