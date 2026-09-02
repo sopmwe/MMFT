@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Remove="Ressourcen\Auge.png" />
-    <None Remove="Ressourcen\Standardpfp.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +27,6 @@
 
   <ItemGroup>
     <Resource Include="Ressourcen\Auge.png" />
-    <Resource Include="Ressourcen\Standardpfp.png" />
   </ItemGroup>
 
 </Project>

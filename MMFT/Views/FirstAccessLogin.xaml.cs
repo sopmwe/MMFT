@@ -16,6 +16,14 @@ namespace MMFT.Views
     /// <summary>
     /// Interaktionslogik für FirstAccessLogin.xaml
     /// </summary>
+    /// 
+
+    //Standardbild einstellen
+    //Bildauswahl ermöglichen
+    //Bild in DB speichern
+    //PW verdecken
+    //PW und Nutzernamen speichern in DB
+    //
     public partial class FirstAccessLogin : Window
     {
         public FirstAccessLogin()
