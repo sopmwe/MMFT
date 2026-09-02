@@ -9,7 +9,7 @@ public partial class Nachrichten
 
     public string SUuid { get; set; }
 
-    public int Zeitstempel { get; set; }
+    public long Zeitstempel { get; set; }
 
     public string TInhalt { get; set; }
 
