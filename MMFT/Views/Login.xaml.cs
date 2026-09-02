@@ -46,7 +46,7 @@ namespace MMFT.Views
 
             InitializeComponent();
             var verwalter = new NutzerVerwalten();
-            verwalter.NutzerAnlegen();
+            verwalter.NutzerAnlegen(Nutzername);
 
             DataContext = this;
         }

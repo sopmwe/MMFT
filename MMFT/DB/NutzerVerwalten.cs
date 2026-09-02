@@ -36,7 +36,7 @@ namespace MMFT.DB
             throw new Exception("Keine IP-Adresse gefunden");
         }
 
-        public void NutzerAnlegen()
+        public void NutzerAnlegen(string name)
         {
             var keys = generiereRSA();
             string publicKey = keys.publicKey;
@@ -45,8 +45,6 @@ namespace MMFT.DB
             string ip = EigeneIP();
 
             string uuid = Guid.CreateVersion7().ToString();
-
-            string name = "Test";
 
             using (var db = new MessengerDbContext())
             {
