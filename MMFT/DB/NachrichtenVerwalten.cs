@@ -10,6 +10,7 @@ namespace MMFT.DB
     public class NachrichtenVerwalten
     {
         // Hier werden die Nachrichten zum Senden gespeichert, der TCP dings kann die dann nehmen und senden i guess wenn das so geht
+        // EmfängerUUID, TInhalt und DInhalt müssen der Methode übergeben werden 
         public static void SpeichereNachrichtSenden(string euuid, string tInhalt, byte[] dInhalt)
         {
             using var db = new MessengerDbContext();
@@ -38,7 +39,7 @@ namespace MMFT.DB
             db.SaveChanges();
         }
         // Typ 2 Nachrichten werden hier in der DB gespeichert. Werden direkt von dem TCP Dings geholt
-        public static void SpeichereNachrichtEmpfangen(PaketTyp2 paket)
+        /*public static void SpeichereNachrichtEmpfangen(PaketTyp2 paket)
         {
             using var db = new MessengerDbContext();
 
@@ -53,6 +54,6 @@ namespace MMFT.DB
 
             db.Nachrichtens.Add(nachricht);
             db.SaveChanges();
-        }
+        }*/
     }
 }
