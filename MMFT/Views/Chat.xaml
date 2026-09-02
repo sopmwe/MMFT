@@ -5,8 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MMFT.Views"
         mc:Ignorable="d"
-        Title="Chat" Height="450" Width="800">
+        Title="Chat" Height="450" Width="800" Background="#FF525252">
+    <Window.Resources>
+        <!-- Normaler Kontakt -->
+        <DataTemplate x:Key="FirstContact">
+            <Border Background="#eee9e9" CornerRadius="4" Margin="2" Padding="8">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding ImagePath}" Width="32" Height="32" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Title}" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="20"  Foreground="#000000" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <!-- Normaler Kontakt mit Status -->
+        <DataTemplate x:Key="FirstContactWithStatus">
+            <Border Background="#eee9e9" CornerRadius="4" Margin="2" Padding="8">
+                <!-- Profilbild, Name und Status -->
+                <StackPanel Orientation="Horizontal">
+
+                    <Image Source="{Binding ImagePath}" Width="32" Height="32" VerticalAlignment="Center"/>
+
+                    <StackPanel Orientation="Vertical" Margin="12,0,0,0" VerticalAlignment="Center">
+
+                        <TextBlock Text="{Binding Title}" 
+                       FontSize="14" 
+                       FontWeight="Bold" 
+                       Foreground="#000000"/>
+                        <TextBlock Text="{Binding Subtitle}" 
+                       FontSize="10" 
+                       Foreground="#546E7A" 
+                       Margin="0,1,0,0"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <!-- Kontakt mit Benachrichtigung -->
+        <DataTemplate x:Key="NotifiedContactTemplate">
+            <Border Background="#8b2252" CornerRadius="4" Margin="2" Padding="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Profilbild und Name -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Image Source="{Binding ImagePath}" Width="32" Height="32" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Title}" Margin="10,0,0,0" FontSize="20" VerticalAlignment="Center" Foreground="#000000" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!-- Benachrichtigung -->
+                    <Border Grid.Column="1" Background="#e6e6fa" CornerRadius="10" MinWidth="20" Height="20" Padding="5,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Anzahl}" Foreground="#000000" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <!-- Kontakt mit Benachrichtigung -->
+        <DataTemplate x:Key="NotifiedStatusContactTemplate">
+            <Border Background="#8b2252" CornerRadius="4" Margin="2" Padding="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Profilbild, Text und Status -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Image Source="{Binding ImagePath}" Width="32" Height="32" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" Margin="12,0,0,0" VerticalAlignment="Center">
+
+                            <TextBlock Text="{Binding Title}" 
+                            FontSize="14" 
+                            FontWeight="Bold" 
+                            Foreground="#000000"/>
+                            <TextBlock Text="{Binding Subtitle}" 
+                            FontSize="10" 
+                            Foreground="#e6e6fa" 
+                            Margin="0,1,0,0"/>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Benachrichtigung -->
+                    <Border Grid.Column="1" Background="#e6e6fa" CornerRadius="10" MinWidth="20" Height="20" Padding="5,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Anzahl}" Foreground="#000000" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <!-- Template-Selector -->
+        <local:KontakttypSelector x:Key="ListBoxSelector"
+                              StandardTemplate="{StaticResource FirstContact}"
+                              ZahlTemplate="{StaticResource NotifiedContactTemplate}"
+                              StandardStatusTemplate="{StaticResource FirstContactWithStatus}"
+                              ZahlStatusTemplate="{StaticResource NotifiedStatusContactTemplate}"/>
+    </Window.Resources>
     <Grid>
-        
+        <ListBox x:Name="Kontakte" HorizontalAlignment="Left" Height="313" VerticalAlignment="Top" Width="183" Margin="0,121,0,0" BorderBrush="#FF8B2252" SelectionChanged="ListBox_SelectionChanged" ItemTemplateSelector="{StaticResource ListBoxSelector}">
+            <ListBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF525252" Offset="0"/>
+                    <GradientStop Color="#FF212121" Offset="1"/>
+                </LinearGradientBrush>
+            </ListBox.Background>
+        </ListBox>
+
     </Grid>
 </Window>
