@@ -9,6 +9,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MMFT.Views;
+
+//TODOs: Passwort soll wärend Eingabe nicht angezeigt werden, sondern als Sternchen oder Punkte dargestellt werden.
+//TODOs: tatsächlichen Nutzernamen anzeigen
+//TODOs: Logo hinzufügen
+//TODOs: Login-Button hinzufügen
+//TODOs: Passwort-Button hinzufügen
+//TODOs: DB-Prüfung einbauen, ob DB existiert
+//TODOs: Fehleranzeige eher als Label ohne Inhalt einfügen? stattdessen Binding je nach Inhalt?
 
 namespace MMFT.Views
 {
@@ -35,6 +44,14 @@ namespace MMFT.Views
             InitializeComponent();
 
             DataContext = this;
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // Login IF-Statement
+            Chat chat = new Chat();
+            chat.Show();
+            this.Close();
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MMFT.Views
@@ -16,7 +15,7 @@ namespace MMFT.Views
     /// <summary>
     /// Interaktionslogik für Chat.xaml
     /// </summary>
-    public partial class Chat : Page
+    public partial class Chat : Window
     {
         public Chat()
         {

@@ -30,6 +30,6 @@
             </Button>
         </Grid>
         <Label Content="Falsches Passwort, erneut versuchen." FontSize="15" Margin="30,0,30,10" Foreground="#525252"/>
-        <Button Name="btnLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
+        <Button Name="BtnLogin" Click="BtnLogin_Click" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>
