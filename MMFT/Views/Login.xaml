@@ -29,6 +29,7 @@
                 <Image Source="/Ressourcen/Auge.png" Stretch="Uniform" Height="25" Width="25"/>
             </Button>
         </Grid>
-        <Button Name="btnLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30,10" HorizontalAlignment="Center"/>
+        <Label Content="Falsches Passwort, erneut versuchen." FontSize="15" Margin="30,0,30,10" Foreground="#525252"/>
+        <Button Name="btnLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>
