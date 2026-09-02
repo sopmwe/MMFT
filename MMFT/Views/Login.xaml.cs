@@ -17,9 +17,24 @@ namespace MMFT.Views
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        private string _Nutzername;
+        public string Nutzername
         {
+            get { return _Nutzername; }
+            set { _Nutzername = value; }
+        }
+        public Login()
+        { 
+
+            //Nutzername = Environment.UserName;
+            //if (string.IsNullOrEmpty(Nutzername))
+            //{
+                Nutzername = "Test";
+            //}
+
             InitializeComponent();
+
+            DataContext = this;
         }
     }
 }
