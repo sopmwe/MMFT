@@ -16,7 +16,7 @@ namespace MMFT.Views
     /// <summary>
     /// Interaktionslogik für FirstAccessLogin.xaml
     /// </summary>
-    public partial class FirstAccessLogin : Page
+    public partial class FirstAccessLogin : Window
     {
         public FirstAccessLogin()
         {

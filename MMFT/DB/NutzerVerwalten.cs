@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using MMFT.DB.Models;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 
 namespace MMFT.DB
 {

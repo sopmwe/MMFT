@@ -9,8 +9,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MMFT.DB;
-using MMFT.DB.Models;
+<<<<<<< HEAD =======
+using MMFT.Views;
+
+//TODOs: Passwort soll wärend Eingabe nicht angezeigt werden, sondern als Sternchen oder Punkte dargestellt werden.
+//TODOs: tatsächlichen Nutzernamen anzeigen
+//TODOs: Logo hinzufügen
+//TODOs: Login-Button hinzufügen
+//TODOs: Passwort-Button hinzufügen
+//TODOs: DB-Prüfung einbauen, ob DB existiert
+//TODOs: Fehleranzeige eher als Label ohne Inhalt einfügen? stattdessen Binding je nach Inhalt?
+>>>>>>> 0de5d0c4c63d2b6ff289921f64a84dbbf02ec68c
 
 namespace MMFT.Views
 {
@@ -19,11 +28,35 @@ namespace MMFT.Views
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        private string _Nutzername;
+        public string Fehlermeldung;
+        public string Nutzername
         {
+            get { return _Nutzername; }
+            set { _Nutzername = value; }
+        }
+        public Login()
+        { 
+
+            //Nutzername = Environment.UserName;
+            //if (string.IsNullOrEmpty(Nutzername))
+            //{
+                Nutzername = "Test";
+            //}
+
             InitializeComponent();
-            var verwalter = new NutzerVerwalten();
-            verwalter.NutzerAnlegen();
+<<<<<<< HEAD =======
+
+            DataContext = this;
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // Login IF-Statement
+            Chat chat = new Chat();
+            chat.Show();
+            this.Close();
+>>>>>>> 0de5d0c4c63d2b6ff289921f64a84dbbf02ec68c
         }
     }
 }
