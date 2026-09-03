@@ -24,10 +24,10 @@
         <TextBox Name="NutzernameTB" Margin="30,0,30,0"/>
 
         <Label Content="Passwort festlegen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
-        <PasswordBox Name="PasswortEinsTB" Margin="30,0,30,0"/>
+        <PasswordBox Name="PasswortEinsPB" Margin="30,0,30,0"/>
 
         <Label Content="Passwort wiederholen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
-        <PasswordBox Name="PasswortZweiTB" Margin="30,0,30,0"/>
+        <PasswordBox Name="PasswortZweiPB" Margin="30,0,30,0"/>
 
         <Label Content="Profilbild auswählen:" FontSize="15" Margin="30, 10, 30, 0" Foreground="#e6e6fa" Height="32" Width="341"/>
         <Grid Margin="30,0,30,0">

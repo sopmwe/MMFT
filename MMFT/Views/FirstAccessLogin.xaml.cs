@@ -21,13 +21,11 @@ namespace MMFT.Views
     /// </summary>
     /// 
 
-    //Passwortanforderungen??
-    //Bild in DB speichern
-    //PW und Nutzernamen speichern in DB, PreparedStatements verwenden
-    //
+    //Bild in DB speichern, umwandeln in BLOB?
+    //Registrierung in Anwendung
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private const string defaultProfilbild = "Ressourcen/Profilbild.png";
+        private const string defaultProfilbild = "Ressourcen/StandardProfilbild.png";
 
         private string _profilbild;
 
@@ -62,7 +60,7 @@ namespace MMFT.Views
             };
 
             if (dialog.ShowDialog() == true)
-            { 
+            {
                 profilbild = dialog.FileName;
             }
         }
@@ -78,6 +76,34 @@ namespace MMFT.Views
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
 
+        private void btnFirstAccessLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NutzernameTB.Text))
+            {
+                fehlermeldung = "Bitte geben Sie einen Benutzernamen ein.";
+                OnPropertyChanged();
+            }
+            else if (string.IsNullOrWhiteSpace(PasswortEinsPB.Password) || string.IsNullOrWhiteSpace(PasswortZweiPB.Password))
+            {
+                fehlermeldung = "Bitte geben Sie das Passwort zweimal ein.";
+                OnPropertyChanged();
+            }
+            else if (PasswortEinsPB.Password != PasswortZweiPB.Password)
+            {
+                fehlermeldung = "Die Passwörter stimmen nicht überein.";
+                OnPropertyChanged();
+            }
+            else
+            {
+                //Nutzername und Passwort als Variable speichern
+                //string nutzername = NutzernameTB.Text;
+                //string passwort = PasswortEinsPB.Password;
+                Chat chat = new Chat();
+                chat.Show();
+                this.Close();
+            }
+        }
+
+    }
 }
