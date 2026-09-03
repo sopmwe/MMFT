@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Ressourcen\Auge.png" />
-  </ItemGroup>
-
 </Project>

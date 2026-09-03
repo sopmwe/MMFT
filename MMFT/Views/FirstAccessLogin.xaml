@@ -35,13 +35,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto" MinWidth="212"/>
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding Profilbild}" Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left"/>
+            <Image Source="{Binding profilbild}" Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left"/>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="50">
-                <Button Name="BtnEinfügen" Click="BtnEinfuegen_Click" Content="einfügen" Width="150" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                <Button Name="BtnLöschen" Click="BtnLoeschen_Click" Content="löschen" Width="150" HorizontalAlignment="Center"/>
+                <Button Name="btnEinfügen" Click="btnEinfuegen_Click" Content="einfügen" Width="150" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                <Button Name="btnLöschen" Click="btnLoeschen_Click" Content="löschen" Width="150" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
-        <Label Content="{Binding Fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
-        <Button Name="BtnFirstAccessLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
+        <Label Content="{Binding fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
+        <Button Name="btnFirstAccessLogin" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

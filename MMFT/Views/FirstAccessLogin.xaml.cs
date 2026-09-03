@@ -27,7 +27,7 @@ namespace MMFT.Views
     //
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private const string defaultProfilbild = "pack://application:,,,/MMFT;component/Ressourcen/Profilbild.png";
+        private const string defaultProfilbild = "Ressourcen/Profilbild.png";
 
         private string _profilbild;
 
@@ -43,6 +43,8 @@ namespace MMFT.Views
                 }
             }
         }
+
+        public string fehlermeldung;
 
         public FirstAccessLogin()
         {

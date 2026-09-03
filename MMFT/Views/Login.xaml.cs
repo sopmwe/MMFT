@@ -13,11 +13,9 @@ using MMFT.DB;
 using MMFT.DB.Models;
 using MMFT.Views;
 
-//TODOs: Passwort soll wärend Eingabe nicht angezeigt werden, sondern als Sternchen oder Punkte dargestellt werden.
 //TODOs: tatsächlichen Nutzernamen anzeigen
 //TODOs: Logo hinzufügen
 //TODOs: Login-Button hinzufügen
-//TODOs: Passwort-Button hinzufügen
 //TODOs: DB-Prüfung einbauen, ob DB existiert
 //TODOs: Fehleranzeige eher als Label ohne Inhalt einfügen? stattdessen Binding je nach Inhalt?
 
@@ -28,7 +26,7 @@ namespace MMFT.Views
     /// </summary>
     public partial class Login : Window
     {
-        private string _Nutzername;
+        private string _nutzername;
         public string fehlermeldung;
         public string nutzername
         {
