@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using MMFT.DB;
 using MMFT.DB.Models;
 using MMFT.Views;
+using System.IO;
+using System.Linq;
 
 //TODOs: tatsächlichen Nutzernamen anzeigen
 //TODOs: Logo hinzufügen
@@ -34,27 +36,41 @@ namespace MMFT.Views
             set { _nutzername = value; }
         }
         public Login()
-        { 
+        {
+            nutzername = File.ReadLines("Zugang.txt").First();
+            if (string.IsNullOrEmpty(nutzername))
+            {
+                FirstAccessLogin firstAccessLogin = new FirstAccessLogin();
+                firstAccessLogin.Show();
+            }
+            else
+            {
+                InitializeComponent();
+                var verwalter = new NutzerVerwalten();
+                verwalter.NutzerAnlegen(nutzername);
 
-            //nutzername = Environment.UserName;
-            //if (string.IsNullOrEmpty(nutzername))
-            //{
-                nutzername = "Test";
-            //}
-
-            InitializeComponent();
-            var verwalter = new NutzerVerwalten();
-            verwalter.NutzerAnlegen(nutzername);
-
-            DataContext = this;
+                DataContext = this;
+            }
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // Login IF-Statement
-            Chat chat = new Chat();
-            chat.Show();
-            this.Close();
+            if (string.IsNullOrEmpty(PasswortPB.Password))
+            {
+                fehlermeldung = "Bitte geben Sie ein Passwort ein.";
+                return;
+            }
+            else if (PasswortPB.Password != File.ReadLines("Zugang.txt").ElementAt(1))
+            {
+                fehlermeldung = "Falsches Passwort.";
+                return;
+            }
+            else
+            {
+                Chat chat = new Chat();
+                chat.Show();
+                this.Close();
+            }
         }
     }
 }

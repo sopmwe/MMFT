@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -104,10 +105,14 @@ namespace MMFT.Views
                 fehlermeldung = "Die Passwörter stimmen nicht überein.";
             }
             else
-            {
-                //Nutzername und Passwort als Variable speichern
-                //string nutzername = NutzernameTB.Text;
-                //string passwort = PasswortEinsPB.Password;
+            { 
+                string[] eingabe = new string[]
+                {
+                    NutzernameTB.Text,
+                    PasswortEinsPB.Password  //später nur Nutzername speichern wegen Sicherheit 
+                };
+                File.WriteAllLines("Zugang.txt", eingabe);
+                // Nutzername, Passwort und PFB in DB laden
                 Chat chat = new Chat();
                 chat.Show();
                 this.Close();
