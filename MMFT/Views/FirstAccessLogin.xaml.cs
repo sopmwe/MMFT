@@ -128,7 +128,7 @@ namespace MMFT.Views
                 };
                 File.WriteAllLines(path, eingabe);
                 var verwalter = new NutzerVerwalten();
-                verwalter.NutzerAnlegen(eingabe.First());
+                verwalter.NutzerAnlegen(eingabe.First(), PasswortEinsPB.Password);
                 // Nutzername, Passwort und PFB in DB laden??
                 Chat chat = new Chat();
                 chat.Show();

@@ -36,11 +36,14 @@ namespace MMFT.DB
             throw new Exception("Keine IP-Adresse gefunden");
         }
 
-        public void NutzerAnlegen(string name)
+        public void NutzerAnlegen(string name, string passwort)
         {
             var keys = generiereRSA();
             string publicKey = keys.publicKey;
             string privateKey = keys.privateKey;
+
+            // PrivateKey verschluesseln für DB
+            byte[] privateKeyVerschluesselt = AesHelfer.VerschluesselPrivateKey(privateKey, passwort);
 
             string ip = EigeneIP();
 
@@ -65,7 +68,7 @@ namespace MMFT.DB
                     var pNutzer = new PNutzer
                     {
                         Uuid = uuid,
-                        PrivateKey = privateKey
+                        PrivateKey = privateKeyVerschluesselt
                     };
                     
                     db.Nutzers.Add(nutzer);

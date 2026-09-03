@@ -9,7 +9,7 @@ public partial class PNutzer
 
     public string Uuid { get; set; }
 
-    public string PrivateKey { get; set; }
+    public byte[] PrivateKey { get; set; }
 
     public virtual Nutzer Uu { get; set; }
 }
