@@ -13,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MMFT.Views
 {
@@ -26,6 +25,8 @@ namespace MMFT.Views
     //Registrierung in Anwendung
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
+
         private const string defaultProfilbild = "pack://application:,,,/Ressourcen/Standardpfp.png";
 
         private string _profilbild;
@@ -111,7 +112,7 @@ namespace MMFT.Views
                     NutzernameTB.Text,
                     PasswortEinsPB.Password  //später nur Nutzername speichern wegen Sicherheit 
                 };
-                File.WriteAllLines("Zugang.txt", eingabe);
+                File.WriteAllLines(path, eingabe);
                 // Nutzername, Passwort und PFB in DB laden
                 Chat chat = new Chat();
                 chat.Show();

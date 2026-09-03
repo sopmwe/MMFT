@@ -1,5 +1,12 @@
-﻿using System;
+﻿using MMFT.DB;
+using MMFT.DB.Models;
+using MMFT.Views;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,49 +15,72 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MMFT.DB;
-using MMFT.DB.Models;
-using MMFT.Views;
-using System.IO;
-using System.Linq;
 
 //TODOs: tatsächlichen Nutzernamen anzeigen
-//TODOs: Logo hinzufügen
 //TODOs: Login-Button hinzufügen
-//TODOs: DB-Prüfung einbauen, ob DB existiert
-//TODOs: Fehleranzeige eher als Label ohne Inhalt einfügen? stattdessen Binding je nach Inhalt?
 
 namespace MMFT.Views
 {
     /// <summary>
     /// Interaktionslogik für Login.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : Window, INotifyPropertyChanged
     {
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
         private string _nutzername;
-        public string fehlermeldung;
         public string nutzername
         {
             get { return _nutzername; }
-            set { _nutzername = value; }
+            set
+            {
+                _nutzername = value;
+                OnPropertyChanged();
+            }
         }
+        private string _fehlermeldung;
+
+        public string fehlermeldung
+        {
+            get { return _fehlermeldung; }
+            set
+            {
+                _fehlermeldung = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Login()
         {
-            nutzername = File.ReadLines("Zugang.txt").First();
-            if (string.IsNullOrEmpty(nutzername))
+            InitializeComponent();
+            DataContext = this;
+
+            if (!File.Exists(path) || new FileInfo(path).Length == 0)
             {
                 FirstAccessLogin firstAccessLogin = new FirstAccessLogin();
                 firstAccessLogin.Show();
+                this.Close();
             }
             else
             {
-                InitializeComponent();
+                var lines = File.ReadAllLines(path);
+                if (lines.Length == 0)
+                {
+                    FirstAccessLogin firstAccessLogin = new FirstAccessLogin();
+                    firstAccessLogin.Show();
+                    this.Close();
+                    return;
+                }
+                var nutzername = lines.First();
                 var verwalter = new NutzerVerwalten();
                 verwalter.NutzerAnlegen(nutzername);
-
-                DataContext = this;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -60,7 +90,7 @@ namespace MMFT.Views
                 fehlermeldung = "Bitte geben Sie ein Passwort ein.";
                 return;
             }
-            else if (PasswortPB.Password != File.ReadLines("Zugang.txt").ElementAt(1))
+            else if (PasswortPB.Password != File.ReadLines(path).ElementAt(1))
             {
                 fehlermeldung = "Falsches Passwort.";
                 return;
