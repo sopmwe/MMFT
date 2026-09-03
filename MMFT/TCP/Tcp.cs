@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Text;
 
 
-namespace Tcp
+namespace MMFT.TCP
 {
     public partial class Tcp
     {

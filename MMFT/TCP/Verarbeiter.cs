@@ -9,7 +9,7 @@ using MMFT.DB;
 using MMFT.DB.Models;
 
 
-namespace Verarbeiter
+namespace MMFT.TCP
 {
     public class Verarbeiter
     {
@@ -83,15 +83,44 @@ namespace Verarbeiter
             PaketTyp1 paket = JsonSerializer.Deserialize<PaketTyp1>(jsonText);
             //Datenbank Verbindung öffnen
             using var db = new MessengerDbContext();
+            //prüfen ob der Nutzer schon in unserer DB existiert:
+            var existierenderNutzer = db.Nutzers.FirstOrDefault(n => n.Uuid == paket.Uuid);
+            if (existierenderNutzer == null)
+            {
+                var neuerNutzer = new Nutzer
+                {
+                    Uuid = paket.Uuid,
+                    PublicKey = paket.PublicKey,
+                    Name = paket.Name,
+                    Ip = paket.Ip,
+                    PBild = paket.PBild,
+                };
 
-            
-            
+                db.Nutzers.Add(neuerNutzer);
+                db.SaveChanges();
+                Console.WriteLine($"Neuer Kontakt {paket.Name} erfolgreich gespeichert!");
+            }
+            else
+            {
+                //falls Ip oder Name aktualisiert werden müssen
+                existierenderNutzer.Ip = paket.Ip;
+                existierenderNutzer.Name = paket.Name;
+                if (paket.PBild != null)
+                {
+                    existierenderNutzer.PBild = paket.PBild;
+                }
+                db.SaveChanges();
+                Console.WriteLine($"Kontakt {paket.Name} aktualisiert");
+            } 
         }
 
         private static void SpeicherTyp2(string jsonText) {
             //Json in Objekt umwandeln
             PaketTyp2 paket = JsonSerializer.Deserialize<PaketTyp2>(jsonText);
 
+            using var db = new MessengerDbContext();
+
+            //Nachricht speichern
             
         }
         private static void VerarbeiteTyp3(string jsonText) {
