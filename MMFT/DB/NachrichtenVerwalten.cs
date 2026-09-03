@@ -40,30 +40,56 @@ namespace MMFT.DB
             }
 
             // Verschluesselung für DB
-            string tInhaltDb = RsaHelfer.VerschluesselText(tInhalt, eigenerNutzer.PublicKey);
-            byte[] dInhaltDb = RsaHelfer.VerschluesselBytes(dInhalt, eigenerNutzer.PublicKey);
+            string? tInhaltDb;
+            byte[]? dInhaltDb;
 
+            try
+            {
+                tInhaltDb = RsaHelfer.VerschluesselText(tInhalt, eigenerNutzer.PublicKey);
+                dInhaltDb = RsaHelfer.VerschluesselBytes(dInhalt, eigenerNutzer.PublicKey);
+            }
+            catch(Exception ex)
+            {
+                string fehlerText = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    fehlerText += "\n\nInnerException: " + ex.InnerException.Message;
+                }
+                MessageBox.Show(fehlerText);
+                return;
+            }
 
             long zeitstempel = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-            var nachricht = new Nachrichten
+            try
             {
+                var nachricht = new Nachrichten
+                {
 
-                EUuid = euuid,
-                SUuid = suuid,
-                Zeitstempel = zeitstempel,
-                TInhalt = tInhaltDb,
-                DInhalt = dInhaltDb
+                    EUuid = euuid,
+                    SUuid = suuid,
+                    Zeitstempel = zeitstempel,
+                    TInhalt = tInhaltDb,
+                    DInhalt = dInhaltDb
 
-            };
+                };
 
-            db.Nachrichtens.Add(nachricht);
-            db.SaveChanges();
+                db.Nachrichtens.Add(nachricht);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string fehlerText = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    fehlerText += "\n\nInnerException: " + ex.InnerException.Message;
+                }
+                MessageBox.Show(fehlerText);
+                return;
+            }
 
             // Verschluesselung für TCP
-            string tInhaltTcp = RsaHelfer.VerschluesselText(tInhalt, empfaenger.PublicKey);
-            byte[] dInhaltTcp = RsaHelfer.VerschluesselBytes(dInhalt, empfaenger.PublicKey);
-
+            string? tInhaltTcp = RsaHelfer.VerschluesselText(tInhalt, empfaenger.PublicKey);
+            byte[]? dInhaltTcp = RsaHelfer.VerschluesselBytes(dInhalt, empfaenger.PublicKey);
 
             var paket = new PaketTyp2
             {
