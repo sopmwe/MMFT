@@ -37,6 +37,16 @@ namespace MMFT.DB
 
             db.Nachrichtens.Add(nachricht);
             db.SaveChanges();
+
+            var paket = new PaketTyp2
+            {
+                EUuid = euuid,
+                SUuid = suuid,
+                Zeitstempel = zeitstempel,
+                TInhalt = tInhalt,
+                DInhalt = dInhalt
+            };
+            // sendeNachrichtTyp2TCP(paket);
         }
         // Typ 2 Nachrichten werden hier in der DB gespeichert. Werden direkt von dem TCP Dings geholt
         /*public static void SpeichereNachrichtEmpfangen(PaketTyp2 paket)
