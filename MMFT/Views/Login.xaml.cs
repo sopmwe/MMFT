@@ -16,9 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-//TODOs: tatsächlichen Nutzernamen anzeigen
-//TODOs: Login-Button hinzufügen
-
 namespace MMFT.Views
 {
     /// <summary>
