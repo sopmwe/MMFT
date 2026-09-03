@@ -25,7 +25,7 @@ namespace MMFT.Views
     //Registrierung in Anwendung
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private const string defaultProfilbild = "pack://application:,,,/Ressourcen/StandardProfilbild.png";
+        private const string defaultProfilbild = "pack://application:,,,/Ressourcen/Standardpfp.png";
 
         private string _profilbild;
 
