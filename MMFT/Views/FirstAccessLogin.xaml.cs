@@ -1,28 +1,20 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.IO;
-using System.Collections.Generic;
+using MMFT.DB;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 
 namespace MMFT.Views
 {
     /// <summary>
     /// Interaktionslogik für FirstAccessLogin.xaml
     /// </summary>
-    /// 
+    /// Diese Klasse repräsentiert das FirstAccessLogin-Fenster der Anwendung.
+    /// Wird nur geöffnet, wenn die Zugangsdaten-Datei nicht existiert oder leer ist.
 
     //Bild in DB speichern, umwandeln in BLOB?
-    //Registrierung in Anwendung
+    //Daten generell in DB speichern
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
         private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
@@ -57,6 +49,10 @@ namespace MMFT.Views
             }
         }
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der FirstAccessLogin-Klasse.
+        /// </summary>
+        /// Setzt Default-Profilbild und DataContext für die Bindung.
         public FirstAccessLogin()
         {
             InitializeComponent();
@@ -65,6 +61,11 @@ namespace MMFT.Views
             profilbild = defaultProfilbild;
         }
 
+        /// <summary>
+        /// Öffnet einen Datei-Dialog, um ein Profilbild auszuwählen und setzt das ausgewählte Bild als Profilbild.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEinfuegen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
@@ -79,6 +80,11 @@ namespace MMFT.Views
             }
         }
 
+        /// <summary>
+        /// Setzt das Profilbild auf das Standard-Profilbild zurück.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLoeschen_Click(object sender, RoutedEventArgs e)
         {
 
@@ -91,6 +97,14 @@ namespace MMFT.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Buttonlogik zum Registrieren.
+        /// </summary>
+        /// Eingaben werden überprüft und bei Erfolg in eine Datei geschrieben. 
+        /// Bei Fehler wird eine Fehlermeldung angezeigt.
+        /// Anschließend wird das Chat-Fenster geöffnet.
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFirstAccessLogin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NutzernameTB.Text))
@@ -113,12 +127,13 @@ namespace MMFT.Views
                     PasswortEinsPB.Password  //später nur Nutzername speichern wegen Sicherheit 
                 };
                 File.WriteAllLines(path, eingabe);
-                // Nutzername, Passwort und PFB in DB laden
+                var verwalter = new NutzerVerwalten();
+                verwalter.NutzerAnlegen(eingabe.First());
+                // Nutzername, Passwort und PFB in DB laden??
                 Chat chat = new Chat();
                 chat.Show();
                 this.Close();
             }
         }
-
     }
 }

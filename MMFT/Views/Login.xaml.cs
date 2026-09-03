@@ -1,26 +1,16 @@
-﻿using MMFT.DB;
-using MMFT.DB.Models;
-using MMFT.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace MMFT.Views
 {
     /// <summary>
     /// Interaktionslogik für Login.xaml
     /// </summary>
+    /// Diese Klasse repräsentiert das Login-Fenster der Anwendung. 
+    /// Sie implementiert das INotifyPropertyChanged-Interface, um Änderungen an den Eigenschaften zu überwachen und die Benutzeroberfläche entsprechend zu aktualisieren.
+    /// Sie beinhaltet die Binding-Komponenteneigenschaften für den Benutzernamen und die Fehlermeldung, sowie die Logik für den Login-Vorgang.
     public partial class Login : Window, INotifyPropertyChanged
     {
         private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
@@ -46,12 +36,17 @@ namespace MMFT.Views
             }
         }
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der Login-Klasse
+        /// </summary>
+        /// Prüft, ob die Zugangsdaten-Datei existiert und ob sie leer ist, redirected ggf. zur FirstAccessLogin-GUI.
+        /// Nutzername wird aus der Datei gelesen und in die Binding-Komponente geladen.
         public Login()
         {
             InitializeComponent();
             DataContext = this;
 
-            if (!File.Exists(path) || new FileInfo(path).Length == 0)
+            if (!File.Exists(path))
             {
                 FirstAccessLogin firstAccessLogin = new FirstAccessLogin();
                 firstAccessLogin.Show();
@@ -68,18 +63,29 @@ namespace MMFT.Views
                     return;
                 }
                 nutzername = lines.First();
-                var verwalter = new NutzerVerwalten();
-                verwalter.NutzerAnlegen(nutzername);
             }
         }
 
+        /// <summary>
+        /// Ereignis, das ausgelöst wird, wenn sich eine Eigenschaft ändert.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Methode, die aufgerufen wird, wenn sich eine Eigenschaft ändert, um das PropertyChanged-Ereignis auszulösen.        
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Ereignishandler für den Klick auf die Login-Schaltfläche.
+        /// </summary>
+        /// Überprüft das eingegebene Passwort und öffnet bei erfolgreicher Authentifizierung das Chat-Fenster.
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(PasswortPB.Password))
@@ -87,7 +93,7 @@ namespace MMFT.Views
                 fehlermeldung = "Bitte geben Sie ein Passwort ein.";
                 return;
             }
-            else if (PasswortPB.Password != File.ReadLines(path).ElementAt(1))
+            else if (PasswortPB.Password != File.ReadAllLines(path).ElementAt(1))
             {
                 fehlermeldung = "Falsches Passwort.";
                 return;
