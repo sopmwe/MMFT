@@ -25,7 +25,7 @@ namespace MMFT.Views
     //Registrierung in Anwendung
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private const string defaultProfilbild = "Ressourcen/StandardProfilbild.png";
+        private const string defaultProfilbild = "pack://application:,,,/Ressourcen/StandardProfilbild.png";
 
         private string _profilbild;
 
@@ -41,14 +41,26 @@ namespace MMFT.Views
                 }
             }
         }
-
-        public string fehlermeldung;
+        private string _fehlermeldung;
+        public string fehlermeldung
+        {
+            get => _fehlermeldung;
+            set
+            {
+                if (_fehlermeldung != value)
+                {
+                    _fehlermeldung = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public FirstAccessLogin()
         {
-            profilbild = defaultProfilbild;
             InitializeComponent();
+
             DataContext = this;
+            profilbild = defaultProfilbild;
         }
 
         private void btnEinfuegen_Click(object sender, RoutedEventArgs e)
@@ -82,17 +94,14 @@ namespace MMFT.Views
             if (string.IsNullOrWhiteSpace(NutzernameTB.Text))
             {
                 fehlermeldung = "Bitte geben Sie einen Benutzernamen ein.";
-                OnPropertyChanged();
             }
             else if (string.IsNullOrWhiteSpace(PasswortEinsPB.Password) || string.IsNullOrWhiteSpace(PasswortZweiPB.Password))
             {
                 fehlermeldung = "Bitte geben Sie das Passwort zweimal ein.";
-                OnPropertyChanged();
             }
             else if (PasswortEinsPB.Password != PasswortZweiPB.Password)
             {
                 fehlermeldung = "Die Passwörter stimmen nicht überein.";
-                OnPropertyChanged();
             }
             else
             {
