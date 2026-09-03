@@ -29,29 +29,29 @@ namespace MMFT.Views
     public partial class Login : Window
     {
         private string _Nutzername;
-        public string Fehlermeldung;
-        public string Nutzername
+        public string fehlermeldung;
+        public string nutzername
         {
-            get { return _Nutzername; }
-            set { _Nutzername = value; }
+            get { return _nutzername; }
+            set { _nutzername = value; }
         }
         public Login()
         { 
 
-            //Nutzername = Environment.UserName;
-            //if (string.IsNullOrEmpty(Nutzername))
+            //nutzername = Environment.UserName;
+            //if (string.IsNullOrEmpty(nutzername))
             //{
-                Nutzername = "Test";
+                nutzername = "Test";
             //}
 
             InitializeComponent();
             var verwalter = new NutzerVerwalten();
-            verwalter.NutzerAnlegen(Nutzername);
+            verwalter.NutzerAnlegen(nutzername);
 
             DataContext = this;
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             // Login IF-Statement
             Chat chat = new Chat();

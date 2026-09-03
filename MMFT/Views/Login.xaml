@@ -17,13 +17,13 @@
         </Grid>
         <Label Content="Mad Messenger File Transporter" FontSize="20" Margin="30, 0, 30, 0" Foreground="#e6e6fa"/>
         <Label Content="Willkommen zurück," FontSize="30" Margin="30, 20, 30, 0" Foreground="#e6e6fa"/>
-        <TextBlock Text="{Binding Nutzername}" FontSize="30" Margin="30, 0, 30, 10" Foreground="#e6e6fa"/>
+        <TextBlock Text="{Binding nutzername}" FontSize="30" Margin="30, 0, 30, 10" Foreground="#e6e6fa"/>
         
         <Label Content="Passwort eingeben:" FontSize="20" Margin="30,10" Foreground="#e6e6fa"/>
         <PasswordBox Name="PasswortPB" Height="30" Margin="30,0,30,10" Grid.Column="0" VerticalContentAlignment="Center"/>
         
-        <Label Content="{Binding Fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
+        <Label Content="{Binding fehlermeldung}" FontSize="15" Margin="30,0,30,10" Foreground="red"/>
         
-        <Button Name="BtnLogin" Click="BtnLogin_Click" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
+        <Button Name="btnLogin" Click="btnLogin_Click" Content="Login" FontSize="20" Width="100" Height="40" Margin="30, 30, 30, 0" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

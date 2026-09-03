@@ -27,11 +27,11 @@ namespace MMFT.Views
     //
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private const string DefaultProfilbild = "pack://application:,,,/MMFT;component/Ressourcen/Profilbild.png";
+        private const string defaultProfilbild = "pack://application:,,,/MMFT;component/Ressourcen/Profilbild.png";
 
         private string _profilbild;
 
-        public string Profilbild
+        public string profilbild
         {
             get => _profilbild;
             set
@@ -46,12 +46,12 @@ namespace MMFT.Views
 
         public FirstAccessLogin()
         {
-            Profilbild = DefaultProfilbild;
+            profilbild = defaultProfilbild;
             InitializeComponent();
             DataContext = this;
         }
 
-        private void BtnEinfuegen_Click(object sender, RoutedEventArgs e)
+        private void btnEinfuegen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
@@ -61,14 +61,14 @@ namespace MMFT.Views
 
             if (dialog.ShowDialog() == true)
             { 
-                Profilbild = dialog.FileName;
+                profilbild = dialog.FileName;
             }
         }
 
-        private void BtnLoeschen_Click(object sender, RoutedEventArgs e)
+        private void btnLoeschen_Click(object sender, RoutedEventArgs e)
         {
 
-            Profilbild = DefaultProfilbild;
+            profilbild = defaultProfilbild;
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
