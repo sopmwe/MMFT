@@ -70,7 +70,7 @@ namespace MMFT.Views
                     this.Close();
                     return;
                 }
-                var nutzername = lines.First();
+                nutzername = lines.First();
                 var verwalter = new NutzerVerwalten();
                 verwalter.NutzerAnlegen(nutzername);
             }
