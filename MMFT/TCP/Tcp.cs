@@ -1,5 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Net;
+using System.Text.Json;
+using System.Text;
 
 
 namespace Tcp
@@ -46,5 +48,30 @@ namespace Tcp
                 }
             }
         }
+
+        public static async Task SendePaket(string zielIp, object paket)
+        {
+            try
+            {
+                //Objekt erstmal in JSON umwandeln
+                string jsonText = JsonSerializer.Serialize(paket);
+                byte[] daten = Encoding.UTF8.GetBytes(jsonText);
+
+                //Verbindung zum Client herstellen:
+                using (TcpClient client = new TcpClient())
+                {
+                    await client.ConnectAsync(zielIp, 50001);
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        await stream.WriteAsync(daten, 0, daten.Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Fehler beim Senden an {zielIp}");
+            }
+        }
+
     }
 }
