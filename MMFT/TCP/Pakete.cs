@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Modelle
+namespace MMFT.TCP
 {
     //Header type 
     public class HeaderPaket
