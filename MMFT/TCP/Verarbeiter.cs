@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using Modelle;
 using System.Drawing.Text;
 using System.IO;
 using System.Net.Sockets;
@@ -121,12 +120,56 @@ namespace MMFT.TCP
             using var db = new MessengerDbContext();
 
             //Nachricht speichern
+            var neueNachricht = new Nachrichten
+            {
+                EUuid = paket.EUuid,
+                SUuid = paket.SUuid,
+                Zeitstempel = paket.Zeitstempel,
+                TInhalt = paket.TInhalt,
+                DInhalt = paket.DInhalt,
+            };
+            db.Nachrichtens.Add(neueNachricht);
+            db.SaveChanges();
+            Console.WriteLine($"Neue Nachricht von {paket.SUuid}!");
             
         }
+
+        //Die Sync-Abfrage muss antwortén und lesen
         private static void VerarbeiteTyp3(string jsonText) {
             //Json in Objekt umwandeln
             PaketTyp3 paket = JsonSerializer.Deserialize<PaketTyp3>(jsonText);
-            
+
+            using var db = new MessengerDbContext();
+
+            //Bisschen komplizierter: das mit dem Zeitstempel
+            //Die db soll also alle Nachrichten ausgeben, wo die Uuids zusammenpassen von der Anfrage und von den Nachrichten die schon in der db gespeichert sind
+            //Dann soll sie die Zeitstempel miteinander vergleichen und alle pakete schicken, die älter sind als der Zeitstempel von der Sync-Anfrage
+            var fehlendeNachrichten = db.Nachrichtens.Where(n => n.EUuid == paket.Uuid && n.Zeitstempel > paket.Zeitstempel).ToList();
+
+            //Jetzt erstmal die Daten von dem Anfragenden holen
+            var anfrager = db.Nutzers.FirstOrDefault(n => n.Uuid == paket.Uuid);
+            if(anfrager != null && fehlendeNachrichten.Count > 0)
+            {
+                Console.WriteLine($"sende {fehlendeNachrichten.Count} fehlende Nachrichten an {anfrager.Name}");
+
+                foreach (var nachricht in fehlendeNachrichten)
+                {
+                    var neuesPaket = new PaketTyp2
+                    {
+                        EUuid = nachricht.EUuid,
+                        SUuid = nachricht.SUuid,
+                        Zeitstempel = nachricht.Zeitstempel,
+                        TInhalt = nachricht.TInhalt,
+                        DInhalt = nachricht.DInhalt,
+                    };
+
+                    //über die Sende-Methode zurückschicken
+                    _ = Tcp.SendePaket(anfrager.Ip, neuesPaket);
+                }
+            }
+
+
+
         }
     }
 }

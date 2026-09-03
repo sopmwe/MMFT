@@ -13,6 +13,7 @@ namespace MMFT.TCP
     //Kontakt Paket
     public class PaketTyp1
     {
+        public int Typ = 1;
         public string Antwort {  get; set; }
         public string Uuid { get; set; }
         public string PublicKey { get; set; }
@@ -24,6 +25,7 @@ namespace MMFT.TCP
     //Nachricht Paket
     public class PaketTyp2
     {
+        public int Typ = 2;
         public string EUuid { get; set; }
         public string SUuid { get; set; }
         public long Zeitstempel { get; set; }
@@ -34,6 +36,7 @@ namespace MMFT.TCP
     //Sync Paket
     public class PaketTyp3
     {
+        public int Typ = 3;
         public long Zeitstempel { get; set; }
         public string Uuid { get; set; }
     }
