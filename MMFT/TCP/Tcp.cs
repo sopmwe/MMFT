@@ -38,9 +38,10 @@ namespace MMFT.TCP
                     TcpClient client = tcpListener.AcceptTcpClient();
 
                     //Verarbeiter entscheidet anhand des Json headers, was passiert
-                 //   Thread t = new Thread(Verarbeiter.Verarbeiter.VerarbeiteEingehendesPaket(client));
-                   // t.IsBackground = true;
-                    //t.Start();
+                    //Thread t = new Thread(Verarbeiter.VerarbeiteEingehendesPaket(client));
+                    Thread t = new Thread(() => Verarbeiter.VerarbeiteEingehendesPaket(client));
+                    t.IsBackground = true;
+                    t.Start();
                 }
                 catch (Exception ex)
                 {
