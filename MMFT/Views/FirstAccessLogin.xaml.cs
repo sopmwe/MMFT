@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MMFT.Views
 {
@@ -25,6 +25,8 @@ namespace MMFT.Views
     //Registrierung in Anwendung
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
+
         private const string defaultProfilbild = "pack://application:,,,/Ressourcen/Standardpfp.png";
 
         private string _profilbild;
@@ -104,10 +106,14 @@ namespace MMFT.Views
                 fehlermeldung = "Die Passwörter stimmen nicht überein.";
             }
             else
-            {
-                //Nutzername und Passwort als Variable speichern
-                //string nutzername = NutzernameTB.Text;
-                //string passwort = PasswortEinsPB.Password;
+            { 
+                string[] eingabe = new string[]
+                {
+                    NutzernameTB.Text,
+                    PasswortEinsPB.Password  //später nur Nutzername speichern wegen Sicherheit 
+                };
+                File.WriteAllLines(path, eingabe);
+                // Nutzername, Passwort und PFB in DB laden
                 Chat chat = new Chat();
                 chat.Show();
                 this.Close();
