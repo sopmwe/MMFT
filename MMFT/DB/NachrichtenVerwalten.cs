@@ -1,10 +1,12 @@
 ﻿using MMFT.DB.Models;
-using Modelle;
+using MMFT.TCP;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Windows;
+using System.Threading.Tasks;
+
 
 namespace MMFT.DB
 {
@@ -12,7 +14,7 @@ namespace MMFT.DB
     {
         // Hier werden die Nachrichten zum Senden gespeichert, der TCP dings kann die dann nehmen und senden i guess wenn das so geht
         // EmfängerUUID, TInhalt und DInhalt müssen der Methode übergeben werden 
-        public static void SpeichereNachrichtSenden(string euuid, string tInhalt, byte[] dInhalt)
+        public static async Task SpeichereNachrichtSenden(string euuid, string tInhalt, byte[] dInhalt)
         {
             using var db = new MessengerDbContext();
 
@@ -91,6 +93,12 @@ namespace MMFT.DB
             string? tInhaltTcp = RsaHelfer.VerschluesselText(tInhalt, empfaenger.PublicKey);
             byte[]? dInhaltTcp = RsaHelfer.VerschluesselBytes(dInhalt, empfaenger.PublicKey);
 
+            if (tInhaltTcp == null || dInhaltTcp == null)
+            {
+                MessageBox.Show("Inhalt darf leer aber nicht null sein");
+                return;
+            }
+
             var paket = new PaketTyp2
             {
                 EUuid = euuid,
@@ -100,7 +108,7 @@ namespace MMFT.DB
                 DInhalt = dInhaltTcp
             };
 
-            // sendeNachrichtTyp2TCP(paket);
+            await Tcp.SendePaket(empfaenger.Ip, paket);
 
         }
         // Typ 2 Nachrichten werden hier in der DB gespeichert. Werden direkt von dem TCP Dings geholt
