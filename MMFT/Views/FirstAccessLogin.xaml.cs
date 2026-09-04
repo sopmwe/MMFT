@@ -18,6 +18,7 @@ namespace MMFT.Views
     {
         private const string defaultProfilbild = "pack://application:,,,/Ressourcen/Standardpfp.png";
 
+        private byte[] bildBytes;
         private string _profilbild;
 
         public string profilbild
@@ -119,8 +120,9 @@ namespace MMFT.Views
             else
             {
                 string nutzername = NutzernameTB.Text;
+                bildBytes = File.ReadAllBytes(profilbild);
                 var verwalter = new NutzerVerwalten();
-                verwalter.NutzerAnlegen(nutzername, PasswortEinsPB.Password);
+                verwalter.NutzerAnlegen(nutzername, PasswortEinsPB.Password, bildBytes);
                 // Private Key wird entschluesselt und in der Globalen Variable gespeichert
                 using var db = new MessengerDbContext();
                 var pNutzer = db.PNutzers.FirstOrDefault();

@@ -37,7 +37,7 @@ namespace MMFT.DB
             throw new Exception("Keine IP-Adresse gefunden");
         }
 
-        public void NutzerAnlegen(string name, string passwort)
+        public void NutzerAnlegen(string name, string passwort, byte[]? profilbild)
         {
             var keys = generiereRSA();
             string publicKey = keys.publicKey;
@@ -62,7 +62,7 @@ namespace MMFT.DB
                         PublicKey = publicKey,
                         Name = name,
                         Ip = ip,
-                        //Pbild = profilbild,
+                        PBild = profilbild,
                         //Status = status
                     };
 
