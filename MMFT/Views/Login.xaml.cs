@@ -3,6 +3,7 @@ using MMFT.DB.Models;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Windows;
 
 namespace MMFT.Views
@@ -91,19 +92,35 @@ namespace MMFT.Views
                 fehlermeldung = "Bitte geben Sie ein Passwort ein.";
                 return;
             }
-            else if (PasswortPB.Password != File.ReadAllLines(path).ElementAt(1))
-            {
-                fehlermeldung = "Falsches Passwort.";
-                return;
-            }
             else
             {
                 // Private Key wird entschluesselt und in der Globalen Variable gespeichert
+                string privateKey;
                 using (var db = new MessengerDbContext())
                 {
                     var pNutzer = db.PNutzers.FirstOrDefault();
                     byte[] verschluesselterPrivateKey = pNutzer.PrivateKey;
-                    string privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortPB.Password);
+                    try
+                    {
+                         privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortPB.Password);
+                    }
+                    // Abbruch falls aus dem eingebenen PW ein Key mit falschem Padding entsteht
+                    catch (CryptographicException)
+                    {
+                        fehlermeldung = "Falsches Passwort";
+                        return;
+                    }
+                    // überprüfung ob aus dem Key auch ein RSA schlüssel werden könnte (für den unwahrscheinlichen fall das das Padding zufällig gleich ist)
+                    try
+                    {
+                        using RSA rsa = RSA.Create();
+                        rsa.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out _);
+                    }
+                    catch
+                    {
+                        fehlermeldung = "Ungültiger Private Key";
+                        return;
+                    }
                     NutzerVerwalten.PrivateKeyEntschluesselt = privateKey;
                 }
 
