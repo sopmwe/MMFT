@@ -26,10 +26,4 @@
     <Resource Include="Ressourcen\Standardpfp.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Ressourcen\Zugang.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
