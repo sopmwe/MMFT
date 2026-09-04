@@ -14,7 +14,7 @@ namespace MMFT.TCP
     public class PaketTyp1
     {
         public int Typ = 1;
-        public string Antwort {  get; set; }
+        public string Antwort = "nein";
         public string Uuid { get; set; }
         public string PublicKey { get; set; }
         public string Name { get; set; }
