@@ -41,8 +41,8 @@ namespace MMFT.Views
         /// <summary>
         /// Initialisiert eine neue Instanz der Login-Klasse
         /// </summary>
-        /// Prüft, ob die Zugangsdaten-Datei existiert und ob sie leer ist, redirected ggf. zur FirstAccessLogin-GUI.
-        /// Nutzername wird aus der Datei gelesen und in die Binding-Komponente geladen.
+        /// Prüft, ob die DB-Datei existiert, redirected ggf. zur FirstAccessLogin-GUI.
+        /// Nutzername wird aus der DB gelesen und in die Binding-Komponente geladen.
         public Login()
         {
             InitializeComponent();
@@ -55,8 +55,12 @@ namespace MMFT.Views
                 this.Close();
             }
             else
-            { //hier die Verbindung zur Datenbank herstellen und den Nutzernamen auslesen
-                nutzername = "Platzhalter";
+            { 
+                using (var db = new MessengerDbContext())
+                {
+                    var nutzer = db.Nutzers.First();
+                    nutzername = nutzer.Name;
+                }
             }
         }
 
@@ -95,11 +99,13 @@ namespace MMFT.Views
             else
             {
                 // Private Key wird entschluesselt und in der Globalen Variable gespeichert
-                using var db = new MessengerDbContext();
-                var pNutzer = db.PNutzers.FirstOrDefault();
-                byte[] verschluesselterPrivateKey = pNutzer.PrivateKey;
-                string privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortPB.Password);
-                NutzerVerwalten.PrivateKeyEntschluesselt = privateKey;
+                using (var db = new MessengerDbContext())
+                {
+                    var pNutzer = db.PNutzers.FirstOrDefault();
+                    byte[] verschluesselterPrivateKey = pNutzer.PrivateKey;
+                    string privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortPB.Password);
+                    NutzerVerwalten.PrivateKeyEntschluesselt = privateKey;
+                }
 
                 Chat chat = new Chat();
                 chat.Show();
