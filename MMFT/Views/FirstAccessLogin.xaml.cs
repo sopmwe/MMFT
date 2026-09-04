@@ -120,7 +120,19 @@ namespace MMFT.Views
             else
             {
                 string nutzername = NutzernameTB.Text;
-                bildBytes = File.ReadAllBytes(profilbild);
+
+                if (profilbild == defaultProfilbild)
+                {
+                    using var stream = Application.GetResourceStream(new Uri(defaultProfilbild)).Stream;
+                    using var ms = new MemoryStream();
+                    stream.CopyTo(ms);
+                    bildBytes = ms.ToArray();
+                }
+                else
+                {
+                    bildBytes = File.ReadAllBytes(profilbild);
+                }
+
                 var verwalter = new NutzerVerwalten();
                 verwalter.NutzerAnlegen(nutzername, PasswortEinsPB.Password, bildBytes);
                 // Private Key wird entschluesselt und in der Globalen Variable gespeichert
