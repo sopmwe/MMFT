@@ -14,12 +14,8 @@ namespace MMFT.Views
     /// Diese Klasse repräsentiert das FirstAccessLogin-Fenster der Anwendung.
     /// Wird nur geöffnet, wenn die Zugangsdaten-Datei nicht existiert oder leer ist.
 
-    //Bild in DB speichern, umwandeln in BLOB?
-    //Daten generell in DB speichern
     public partial class FirstAccessLogin : Window, INotifyPropertyChanged
     {
-        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
-
         private const string defaultProfilbild = "pack://application:,,,/Ressourcen/Standardpfp.png";
 
         private string _profilbild;
@@ -101,7 +97,7 @@ namespace MMFT.Views
         /// <summary>
         /// Buttonlogik zum Registrieren.
         /// </summary>
-        /// Eingaben werden überprüft und bei Erfolg in eine Datei geschrieben. 
+        /// Eingaben werden überprüft und bei Erfolg wird der Nutzer angelegt in der DB und die DB selbst angelegt. 
         /// Bei Fehler wird eine Fehlermeldung angezeigt.
         /// Anschließend wird das Chat-Fenster geöffnet.
         /// <param name="sender"></param>
@@ -121,22 +117,16 @@ namespace MMFT.Views
                 fehlermeldung = "Die Passwörter stimmen nicht überein.";
             }
             else
-            { 
-                string[] eingabe = new string[]
-                {
-                    NutzernameTB.Text,
-                    PasswortEinsPB.Password  //später nur Nutzername speichern wegen Sicherheit 
-                };
-                File.WriteAllLines(path, eingabe);
+            {
+                string nutzername = NutzernameTB.Text;
                 var verwalter = new NutzerVerwalten();
-                verwalter.NutzerAnlegen(eingabe.First(), PasswortEinsPB.Password);
+                verwalter.NutzerAnlegen(nutzername, PasswortEinsPB.Password);
                 // Private Key wird entschluesselt und in der Globalen Variable gespeichert
                 using var db = new MessengerDbContext();
                 var pNutzer = db.PNutzers.FirstOrDefault();
                 byte[] verschluesselterPrivateKey = pNutzer.PrivateKey;
                 string privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortEinsPB.Password);
                 NutzerVerwalten.PrivateKeyEntschluesselt = privateKey;
-                // Nutzername, Passwort und PFB in DB laden??
                 Chat chat = new Chat();
                 chat.Show();
                 this.Close();
