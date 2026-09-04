@@ -12,6 +12,7 @@ namespace MMFT.DB
 {
     public class NutzerVerwalten
     {
+        public static string? PrivateKeyEntschluesselt { get; set; }    
         // Erzeugt RSA Keys
         private (string publicKey, string privateKey) generiereRSA()
         {

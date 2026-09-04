@@ -15,7 +15,7 @@ namespace MMFT.DB
 
         }
         // Verschlüsselt den Private Key mit dem Nutzer-Passwort
-        public static byte[] VerschluesselPrivateKey(string privateKeyBase64, string passwort)
+        public static byte[] VerschluesselPrivateKey(string privateKey, string passwort)
         {
             // Schluessel holen
             byte[] key = SchluesselErstellen(passwort);
@@ -28,7 +28,7 @@ namespace MMFT.DB
             aes.GenerateIV();
 
             // private key in Bytes umwandeln
-            byte[] privateKeyBytes = Encoding.UTF8.GetBytes(privateKeyBase64);
+            byte[] privateKeyBytes = Encoding.UTF8.GetBytes(privateKey);
 
             using var encryptor = aes.CreateEncryptor();
 

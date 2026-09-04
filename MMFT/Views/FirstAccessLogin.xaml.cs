@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using MMFT.DB;
+using MMFT.DB.Models;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -129,6 +130,12 @@ namespace MMFT.Views
                 File.WriteAllLines(path, eingabe);
                 var verwalter = new NutzerVerwalten();
                 verwalter.NutzerAnlegen(eingabe.First(), PasswortEinsPB.Password);
+                // Private Key wird entschluesselt und in der Globalen Variable gespeichert
+                using var db = new MessengerDbContext();
+                var pNutzer = db.PNutzers.FirstOrDefault();
+                byte[] verschluesselterPrivateKey = pNutzer.PrivateKey;
+                string privateKey = AesHelfer.EntschluesselPrivateKey(verschluesselterPrivateKey, PasswortEinsPB.Password);
+                NutzerVerwalten.PrivateKeyEntschluesselt = privateKey;
                 // Nutzername, Passwort und PFB in DB laden??
                 Chat chat = new Chat();
                 chat.Show();
