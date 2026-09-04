@@ -1,0 +1,46 @@
+﻿<Window x:Class="MMFT.Views.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MMFT.Views"
+        mc:Ignorable="d"
+        Title="TestWindow" Height="450" Width="800">
+    <Grid Background="#525252">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+
+            <Grid Height="70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="130"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="[Bild]" Grid.Column="0" Foreground="#e6e6fa" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Column="1">
+                    <Label Content="Hallo," Foreground="#e6e6fa" Margin="0, 10, 0, 0"/>
+                    <TextBlock Text="{Binding nutzername}" Foreground="#e6e6fa" Margin="15, 0, 0, 0"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Button Name="btnSettings" Content="Settings" Grid.Column="0" Background="#5C5C5C" Foreground="#e6e6fa"/>
+                <Button Name="btnLogOut" Content="Abmelden" Grid.Column="1" Background="#5C5C5C" Foreground="#e6e6fa"/>
+            </Grid>
+
+            <ListBox Foreground="#e6e6fa"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Background="#585858">
+            <Label Content="TestProjekt Chat" FontSize="24" Foreground="#e6e6fa" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
