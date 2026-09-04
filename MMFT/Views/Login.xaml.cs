@@ -15,7 +15,7 @@ namespace MMFT.Views
     /// Sie beinhaltet die Binding-Komponenteneigenschaften für den Benutzernamen und die Fehlermeldung, sowie die Logik für den Login-Vorgang.
     public partial class Login : Window, INotifyPropertyChanged
     {
-        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Ressourcen", "Zugang.txt");
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MessengerDB.db");
         private string _nutzername;
         public string nutzername
         {
@@ -55,16 +55,8 @@ namespace MMFT.Views
                 this.Close();
             }
             else
-            {
-                var lines = File.ReadAllLines(path);
-                if (lines.Length == 0)
-                {
-                    FirstAccessLogin firstAccessLogin = new FirstAccessLogin();
-                    firstAccessLogin.Show();
-                    this.Close();
-                    return;
-                }
-                nutzername = lines.First();
+            { //hier die Verbindung zur Datenbank herstellen und den Nutzernamen auslesen
+                nutzername = "Platzhalter";
             }
         }
 
